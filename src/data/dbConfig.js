@@ -6,7 +6,10 @@ const MONGO_URL = process.env.MONGODB_URI
 const connect = () => {
     mongoose.connect(MONGO_URL, {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true
+    
     })
     .then(()=>{
         console.log("Conectadas bb no MongoDb Atlas")
