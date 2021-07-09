@@ -43,12 +43,11 @@ const listaUmaDesenvolvedora = async (req, res ) => {
 }
 
 const atualizaDesenvolvedora = async (req, res)=>{
-    
-    const desenvolvedora = await desenvolvedora.findById(req.params.id)
-
-    if (desenvolvedora == null) {
+    try {
+    const desenvolvedora = await Desenvolvedora.findById(req.params.id)
+        if (desenvolvedora == null) {
         return res.status(404).json({ message: 'Desenvolvedora não encontrada!'})
-    }
+        }
     
         if (req.body.nome != null) {
             desenvolvedora.nome = req.body.nome
@@ -77,8 +76,6 @@ const atualizaDesenvolvedora = async (req, res)=>{
         if (req.body.criadoEm != null) {
             desenvolvedora.criadoEm = req.body.criadoEm
         }
-
-        try {
         const desenvolvedoraAtualizada = await desenvolvedora.save()
         res.status(200). json({
             message: "Desenvolvedora Atualizada", desenvolvedoraAtualizada})
@@ -90,7 +87,7 @@ const atualizaDesenvolvedora = async (req, res)=>{
 }
 
 const deletaDesenvolvedora = async (req, res)=>{
-    const desenvolvedora = await desenvolvedora.findById(req.params.id)
+    const desenvolvedora = await Desenvolvedora.findById(req.params.id)
   
     if (desenvolvedora == "" || desenvolvedora == null) {
          return res.status(404).json({ message: 'Desenvolvedora não encontrada!'})
@@ -98,7 +95,7 @@ const deletaDesenvolvedora = async (req, res)=>{
 
     try {
         await desenvolvedora.remove()
-        res.status(200).json({ message: 'Desenvolvedora deletada com sucesso!'})
+        res.json({ message: 'Desenvolvedora deletada com sucesso!'})
 
     } catch (err) {
         return res.status(500).json({ message: err.message})

@@ -79,7 +79,8 @@ const atualizaMentora = async (req, res)=>{
         }
 
         const mentoraAtualizada = await mentora.save()
-        res.json(mentoraAtualizada)
+        res.status(200). json({
+            message: "Mentora Atualizada", mentoraAtualizada})
     
     } catch (err) {
         res.status(500).json({ message: err.message})
