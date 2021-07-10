@@ -12,7 +12,7 @@ const connect = () => {
     
     })
     .then(()=>{
-        console.log("Conectadas bb no MongoDb Atlas")
+        console.log("Conectadas no MongoDb Atlas")
     })
     .catch((error)=>{
         console.log("Algo deu errado")

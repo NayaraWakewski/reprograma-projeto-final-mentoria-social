@@ -21,26 +21,33 @@ const criaMentora= async (req, res)=>{
 
     try {
         const novaMentora = await mentora.save()
-        res.status(201).json(novaMentora)
+        res.status(201).json({
+            message: "Mentora Cadastrada", novaMentora})
+
     }catch (err){
         res.status(400).json({message: err.message})
     }
 }
 
 const listaMentoras = async (req, res)=> {
-    const mentora = await Mentora.find()
+    const mentora = await Mentora.find().populate('mentora')
     res.status(200).json(mentora)
 }
 
 const listaUmaMentora = async (req, res ) => {
+    try {
     const mentora = await Mentora.findById(req.params.id)
 
     if (mentora == null) {
-        return res.status(404).json({ message: 'Desenvolvedora não encontrada!'})
+        return res.status(404).json({ message: 'Mentora não encontrada!'})
     }
 
     res.json(mentora)
-}
+
+    }catch (error) {
+    res.status(500).json({message: error.message})
+     }
+  }
 
 
 const atualizaMentora = async (req, res)=>{
@@ -88,13 +95,13 @@ const atualizaMentora = async (req, res)=>{
 }
 
 const deletaMentora = async (req, res)=>{
+
+    try {
     const mentora = await Mentora.findById(req.params.id);
 
     if (mentora == "" || mentora == null) {
         return res.status(404).json({ message: 'Mentora não encontrada!'})
     }
-
-    try {
         await mentora.remove()
         res.json({ message: 'Mentora deletada com sucesso!'})
 

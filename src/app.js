@@ -15,4 +15,7 @@ app.use('/desenvolvedoras',Desenvolvedora)
 const Mentora = require('./routes/mentorasRoutes')
 app.use('/mentoras',Mentora)
 
+const index = require("./routes/index")
+app.use("/", index);
+
 module.exports = app
